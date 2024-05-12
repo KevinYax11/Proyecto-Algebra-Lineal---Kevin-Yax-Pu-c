@@ -94,8 +94,19 @@ def realizar_operacion():
     else:
         resultado = "Operación inválida"
 
+    # Borrar el área de resultado antes de mostrar el resultado
     area_resultado.delete("1.0", tk.END)
-    area_resultado.insert(tk.END, str(resultado))
+
+    # Si el resultado es una lista de listas (una matriz), formatearlo como matriz
+    if isinstance(resultado, list):
+        for fila in resultado:
+            # Concatenar los elementos de la fila separados por comas
+            fila_formateada = ','.join(map(str, fila))
+            # Insertar la fila formateada en el área de resultado
+            area_resultado.insert(tk.END, fila_formateada + '\n')
+    else:
+        # Si el resultado no es una matriz, simplemente insertarlo en el área de resultado
+        area_resultado.insert(tk.END, str(resultado))
 
 def obtener_matriz(texto):
     filas = texto.split("\n")
